@@ -1,0 +1,63 @@
+syntax = "proto3";
+package pkg.pb;
+option go_package = "github.com/vlad-marlo/auth-server/pb";
+
+message RegisterUserRequest {
+  string username = 1;
+  string password = 2;
+}
+
+message RegisterUserResponse {
+  enum Status {
+    UNKNOWN = 0;
+    INTERNAL = 1;
+    CREATED = 2;
+  }
+  Status status = 1;
+  string error = 2;
+}
+
+message ChangeUserPasswordRequest {
+  string token = 1;
+  string new_password = 2;
+  string current_password = 3;
+}
+
+message ChangeUserPasswordResponse {
+  enum Status {
+    UNKNOWN = 0;
+    INTERNAL = 1;
+    OK = 2;
+  }
+  Status status = 1;
+  string error = 2;
+}
+
+message CreateTokenRequest {
+  string user = 1;
+  string password = 2;
+  int32 lifetime = 3;
+}
+message CreateTokenResponse {
+  string auth_token = 1;
+}
+
+message DeleteTokenRequest {
+  string token = 1;
+}
+message DeleteTokenResponse {}
+
+message ValidateTokenRequest {
+  string token = 1;
+}
+message ValidateTokenResponse {
+  bool ok = 1;
+}
+
+service AuthService {
+  rpc RegisterUser(RegisterUserRequest) returns (RegisterUserResponse);
+  rpc ChangeUserPassword(ChangeUserPasswordRequest) returns (ChangeUserPasswordResponse);
+  rpc CreateToken(CreateTokenRequest) returns (CreateTokenResponse);
+  rpc DeleteToken(DeleteTokenRequest) returns (DeleteTokenResponse);
+  rpc ValidateToken(ValidateTokenRequest) returns (ValidateTokenResponse);
+}
