@@ -28,6 +28,7 @@ message ChangeUserPasswordResponse {
     UNKNOWN = 0;
     INTERNAL = 1;
     OK = 2;
+    CONFLICT = 3;
   }
   Status status = 1;
   string error = 2;
