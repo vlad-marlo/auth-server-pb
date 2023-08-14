@@ -12,6 +12,7 @@ message RegisterUserResponse {
     UNKNOWN = 0;
     INTERNAL = 1;
     CREATED = 2;
+    CONFLICT = 3;
   }
   Status status = 1;
   string error = 2;
@@ -28,7 +29,6 @@ message ChangeUserPasswordResponse {
     UNKNOWN = 0;
     INTERNAL = 1;
     OK = 2;
-    CONFLICT = 3;
   }
   Status status = 1;
   string error = 2;
