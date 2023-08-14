@@ -38,7 +38,9 @@ message CreateTokenRequest {
   string user = 1;
   string password = 2;
   int32 lifetime = 3;
+  bool is_admin = 4;
 }
+
 message CreateTokenResponse {
   string auth_token = 1;
 }
@@ -48,18 +50,8 @@ message DeleteTokenRequest {
 }
 message DeleteTokenResponse {}
 
-message ValidateTokenRequest {
-  string token = 1;
-}
-message ValidateTokenResponse {
-  bool ok = 1;
-  int64 user_id = 2;
-}
-
 service AuthService {
   rpc RegisterUser(RegisterUserRequest) returns (RegisterUserResponse);
   rpc ChangeUserPassword(ChangeUserPasswordRequest) returns (ChangeUserPasswordResponse);
   rpc CreateToken(CreateTokenRequest) returns (CreateTokenResponse);
-  rpc DeleteToken(DeleteTokenRequest) returns (DeleteTokenResponse);
-  rpc ValidateToken(ValidateTokenRequest) returns (ValidateTokenResponse);
 }
