@@ -8,50 +8,59 @@ message RegisterUserRequest {
 }
 
 message RegisterUserResponse {
-  enum Status {
-    UNKNOWN = 0;
-    INTERNAL = 1;
-    CREATED = 2;
-    CONFLICT = 3;
-  }
-  Status status = 1;
-  string error = 2;
+  int64 id = 1;
+  int32 status = 2;
+  string message = 3;
 }
 
 message ChangeUserPasswordRequest {
   string token = 1;
-  string new_password = 2;
-  string current_password = 3;
+  string current_password = 2;
+  string new_password = 3;
 }
 
 message ChangeUserPasswordResponse {
-  enum Status {
-    UNKNOWN = 0;
-    INTERNAL = 1;
-    OK = 2;
-  }
-  Status status = 1;
-  string error = 2;
+  int32 status = 1;
+  string message = 2;
 }
 
 message CreateTokenRequest {
-  string user = 1;
+  string username = 1;
   string password = 2;
-  int32 lifetime = 3;
-  bool is_admin = 4;
 }
 
 message CreateTokenResponse {
-  string auth_token = 1;
+  string token = 1;
+  int32 code = 2;
+  string message = 3;
+  int32 role = 4;
 }
 
-message DeleteTokenRequest {
+message ValidateTokenRequest {
   string token = 1;
 }
-message DeleteTokenResponse {}
+
+message ValidateTokenResponse {
+  int32 code = 1;
+  string message = 2;
+  int64 user_id = 3;
+  int32 role = 4;
+}
+
+message ChangeUserRoleRequest {
+  int32 user_id = 1;
+  int32 role = 2;
+}
+
+message ChangeUserRoleResponse {
+  int32 code = 1;
+  string message = 2;
+}
 
 service AuthService {
   rpc RegisterUser(RegisterUserRequest) returns (RegisterUserResponse);
   rpc ChangeUserPassword(ChangeUserPasswordRequest) returns (ChangeUserPasswordResponse);
   rpc CreateToken(CreateTokenRequest) returns (CreateTokenResponse);
+  rpc ValidateToken(ValidateTokenRequest) returns (ValidateTokenResponse);
+  rpc ChangeUserRole(ChangeUserRoleRequest) returns (ChangeUserRoleResponse);
 }
