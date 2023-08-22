@@ -1,5 +1,4 @@
 syntax = "proto3";
-package pkg.pb;
 option go_package = "github.com/vlad-marlo/auth-server/pb";
 
 message RegisterUserRequest {

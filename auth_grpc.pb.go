@@ -19,11 +19,11 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	AuthService_RegisterUser_FullMethodName       = "/pkg.pb.AuthService/RegisterUser"
-	AuthService_ChangeUserPassword_FullMethodName = "/pkg.pb.AuthService/ChangeUserPassword"
-	AuthService_CreateToken_FullMethodName        = "/pkg.pb.AuthService/CreateToken"
-	AuthService_ValidateToken_FullMethodName      = "/pkg.pb.AuthService/ValidateToken"
-	AuthService_ChangeUserRole_FullMethodName     = "/pkg.pb.AuthService/ChangeUserRole"
+	AuthService_RegisterUser_FullMethodName       = "/AuthService/RegisterUser"
+	AuthService_ChangeUserPassword_FullMethodName = "/AuthService/ChangeUserPassword"
+	AuthService_CreateToken_FullMethodName        = "/AuthService/CreateToken"
+	AuthService_ValidateToken_FullMethodName      = "/AuthService/ValidateToken"
+	AuthService_ChangeUserRole_FullMethodName     = "/AuthService/ChangeUserRole"
 )
 
 // AuthServiceClient is the client API for AuthService service.
@@ -228,7 +228,7 @@ func _AuthService_ChangeUserRole_Handler(srv interface{}, ctx context.Context, d
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var AuthService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "pkg.pb.AuthService",
+	ServiceName: "AuthService",
 	HandlerType: (*AuthServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
