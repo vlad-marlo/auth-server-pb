@@ -2,65 +2,26 @@ syntax = "proto3";
 package auth;
 option go_package = "github.com/vlad-marlo/auth-server/pb";
 
-message RegisterUserRequest {
+message UsernamePasswordRegistrationRequest {
   string username = 1;
   string password = 2;
 }
 
-message RegisterUserResponse {
-  int64 id = 1;
+message RegistrationResponse {
+  string id = 1;
   int32 status = 2;
   string message = 3;
+  string token = 4;
 }
 
-message ChangeUserPasswordRequest {
-  string token = 1;
-  string current_password = 2;
-  string new_password = 3;
+message RecreateTokenRequest {
+  optional string username = 1;
+  optional string id = 2;
+  string password = 3;
 }
 
-message ChangeUserPasswordResponse {
-  int32 status = 1;
-  string message = 2;
-}
-
-message CreateTokenRequest {
-  string username = 1;
-  string password = 2;
-}
-
-message CreateTokenResponse {
-  string token = 1;
-  int32 code = 2;
-  string message = 3;
-  int32 role = 4;
-}
-
-message ValidateTokenRequest {
-  string token = 1;
-}
-
-message ValidateTokenResponse {
-  int32 code = 1;
-  string message = 2;
-  int64 user_id = 3;
-  int32 role = 4;
-}
-
-message ChangeUserRoleRequest {
-  int32 user_id = 1;
-  int32 role = 2;
-}
-
-message ChangeUserRoleResponse {
-  int32 code = 1;
-  string message = 2;
-}
 
 service AuthService {
-  rpc RegisterUser(RegisterUserRequest) returns (RegisterUserResponse);
-  rpc ChangeUserPassword(ChangeUserPasswordRequest) returns (ChangeUserPasswordResponse);
-  rpc CreateToken(CreateTokenRequest) returns (CreateTokenResponse);
-  rpc ValidateToken(ValidateTokenRequest) returns (ValidateTokenResponse);
-  rpc ChangeUserRole(ChangeUserRoleRequest) returns (ChangeUserRoleResponse);
+  rpc UsernamePassword(UsernamePasswordRegistrationRequest) returns (RegistrationResponse);
+  rpc RecreateToken(RecreateTokenRequest) returns (RegistrationResponse);
 }
